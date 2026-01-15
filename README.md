@@ -2,9 +2,13 @@
 
 A Chrome extension that visualizes Claude context health as a compact orb and helps you hand off long chats to a fresh conversation.
 
+![Orb UI](docs/screenshots/refresh_context.png)
+
 ## What It Does
 
 Context Health Bar gives a real-time, heuristic signal for when Claude may start degrading due to instruction drift and long context. It does not read Claude's internal state and does not track or send data anywhere.
+
+![Hover Panel](docs/screenshots/yellow_50.png)
 
 ## Features
 
@@ -40,20 +44,6 @@ Create a clean zip for releases:
 ```
 
 This outputs `dist\context-health-bar.zip`. Upload that file to a GitHub Release.
-
-## Screenshots (Optional but Recommended)
-
-Add two screenshots to help new users:
-
-1. Orb UI on a Claude chat
-2. Hover panel with stats and settings
-
-Place them in `docs/screenshots/` and update this section with image links:
-
-
-![Orb UI](docs/screenshots/refresh_context.png)
-![Hover Panel](docs/screenshots/yellow_50.png)
-
 
 ## How Health Is Calculated
 
