@@ -950,12 +950,21 @@ function fallbackCopy(text, onSuccess) {
   document.body.removeChild(textarea);
 }
 
+function isInputEmpty(input) {
+  if (!input) return true;
+  if (input.hasAttribute('contenteditable')) {
+    const text = (input.innerText || input.textContent || '').trim();
+    return text.length === 0;
+  }
+  const value = (input.value || '').trim();
+  return value.length === 0;
+}
+
 function setDraftInputText(text) {
   const input = document.querySelector('[contenteditable="true"]') ||
                 document.querySelector('textarea[placeholder*="Reply"]');
   if (!input) return false;
-  if (input.textContent && input.textContent.trim().length > 0) return false;
-  if (input.value && input.value.trim().length > 0) return false;
+  if (!isInputEmpty(input)) return false;
 
   const formattedText = `${text}\n\n---\n`;
   input.focus();

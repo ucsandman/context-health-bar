@@ -31,6 +31,30 @@ Context Health Bar gives a real-time, heuristic signal for when Claude may start
 - Click Copy Handoff if you want to paste the handoff manually.
 - Hover over a user message to pin it; pinned messages are treated as core instructions.
 
+## Release Zip (GitHub)
+
+Create a clean zip for releases:
+
+```powershell
+.\scripts\package.ps1
+```
+
+This outputs `dist\context-health-bar.zip`. Upload that file to a GitHub Release.
+
+## Screenshots (Optional but Recommended)
+
+Add two screenshots to help new users:
+
+1. Orb UI on a Claude chat
+2. Hover panel with stats and settings
+
+Place them in `docs/screenshots/` and update this section with image links:
+
+```md
+![Orb UI](docs/screenshots/refresh_context.png)
+![Hover Panel](docs/screenshots/yellow_50.png)
+```
+
 ## How Health Is Calculated
 
 Health starts at 100 and drops based on three factors:
