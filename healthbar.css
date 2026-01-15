@@ -1,0 +1,297 @@
+/**
+ * Context Health Bar Styles
+ * Retro game aesthetic with clean, non-intrusive design
+ */
+
+/* ============================================================================
+   HUD CONTAINER
+   ============================================================================ */
+
+.health-orb {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 10000;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+  border: 3px solid #22c55e;
+  background: rgba(10, 10, 10, 0.92);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+.health-orb.tier-stable {
+  border-color: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+}
+
+.health-orb.tier-degrading {
+  border-color: #f59e0b;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+}
+
+.health-orb.tier-unreliable {
+  border-color: #dc2626;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.6);
+}
+
+.health-orb.tier-critical {
+  border-color: #991b1b;
+  box-shadow: 0 0 10px rgba(153, 27, 27, 0.7);
+}
+
+.health-orb-value {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ============================================================================
+   HOVER PANEL
+   ============================================================================ */
+
+.health-orb-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  width: 260px;
+  max-width: calc(100vw - 24px);
+
+  padding: 10px 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+
+  display: none;
+  color: #ddd;
+  font-size: 11px;
+}
+
+.health-orb-panel::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+
+.health-orb:hover .health-orb-panel {
+  display: block;
+}
+
+.health-orb-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.health-orb-stats {
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #9aa0a6;
+  word-break: break-word;
+}
+
+/* ============================================================================
+   ACTION BUTTONS
+   ============================================================================ */
+
+.health-bar-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.health-bar-actions button {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background: #1b1b1b;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+}
+
+.health-bar-actions button:hover {
+  background: #2a2a2a;
+}
+
+.health-bar-actions button:active {
+  transform: translateY(1px);
+}
+
+/* ============================================================================
+   SETTINGS PANEL
+   ============================================================================ */
+
+.health-bar-settings {
+  display: block;
+  margin-top: 0;
+  padding: 8px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 11px;
+  color: #ddd;
+}
+
+.health-bar-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.health-bar-setting select {
+  background: #111;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+.health-bar-setting input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+/* ============================================================================
+   REFRESH / COPY BUTTON VISIBILITY
+   ============================================================================ */
+
+.health-bar-refresh {
+  display: none;
+}
+
+.health-bar-copy {
+  display: none;
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+/* Tier change pulse animation */
+@keyframes tier-change-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.health-orb.tier-change-pulse {
+  animation: tier-change-pulse 0.5s ease;
+}
+
+/* Critical health pulse */
+@keyframes critical-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================================================
+   PIN ICONS
+   ============================================================================ */
+
+.health-bar-pin-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 28px;
+  height: 28px;
+
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+
+  z-index: 10;
+}
+
+/* Show pin icon on message hover */
+[data-testid^="user-message"]:hover .health-bar-pin-icon {
+  opacity: 1;
+}
+
+/* Always show if pinned */
+.health-bar-pin-icon.pinned {
+  opacity: 1;
+  background: rgba(251, 191, 36, 0.3);
+  border-color: rgba(251, 191, 36, 0.6);
+}
+
+.health-bar-pin-icon:hover {
+  background: rgba(251, 191, 36, 0.4);
+  border-color: rgba(251, 191, 36, 0.8);
+}
+
+/* ============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .health-orb {
+    top: 60px;
+    right: 10px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .health-orb-panel {
+    width: 220px;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+.health-bar-pin-icon:focus {
+  outline: 2px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .health-orb,
+  .health-bar-pin-icon {
+    transition: none;
+  }
+}

@@ -1,0 +1,137 @@
+Good instinct. The video game health bar metaphor is actually powerful because it maps perfectly to how users already feel when an LLM starts acting dumb. You just need to make it technically feasible and psychologically honest.
+
+I will walk you through how to build this as a browser extension for ChatGPT and Claude and what the first real version should do.
+
+First reality check
+You cannot read true internal token usage or attention weights from ChatGPT or Claude UIs. That is fine. You do not need ground truth. You need a believable proxy that correlates with failure. Health bars in games are also abstractions.
+
+So this is a client side heuristic system layered on top of the prompt composer.
+
+Architecture overview
+Browser extension only. Chrome first.
+Content script injected into chat.openai.com and claude.ai
+No backend needed for v1. Everything local.
+
+You will
+read the visible conversation DOM
+estimate tokens
+track instruction distance
+compute a degradation score
+render a floating HUD health bar
+
+Core components
+
+1 Token estimator
+Use a lightweight tokenizer approximation. Do not try to perfectly match OpenAI or Anthropic. Use a character to token heuristic.
+
+Rough rule that works
+English text tokens ≈ characters divided by 4
+
+This is good enough for trend detection which is what you care about.
+
+Parse
+system messages if visible
+user messages
+assistant messages
+current draft input
+
+2 Instruction detection
+You need to identify what counts as core instructions.
+
+Heuristics that work surprisingly well
+Sentences containing verbs like act as, you are, follow these rules, do not, always, never
+Bullet lists near the beginning of the conversation
+Messages with high imperative density
+Messages the user manually pins using your UI
+
+Let users override detection because power users will want control.
+
+3 Distance from recency
+This is the heart of the health bar.
+
+Compute
+Total estimated tokens
+Token position of last core instruction
+Token position of last constraint
+
+Distance ratio = instruction distance from end divided by total tokens
+
+As that ratio increases the health bar drops.
+
+4 Noise accumulation
+Add penalties for
+long assistant monologues
+repeated topic drift
+large unstructured data dumps
+multiple conflicting instruction blocks
+
+You do not need to be perfect. You need to be directionally correct.
+
+Health calculation example
+Start at 100
+Subtract based on instruction distance
+Subtract based on total tokens
+Subtract based on noise signals
+Clamp to zero
+
+Map ranges
+80 to 100 Green Stable
+50 to 79 Yellow Degrading
+20 to 49 Red Unreliable
+Below 20 Skull icon basically dead
+
+Now the fun part
+Visualization
+
+Floating HUD element anchored near the input box
+Retro game style health bar
+Green to yellow to red gradient
+Small shake animation when dropping tiers
+Optional pixel font because yes it is funny and memorable
+
+Tooltip on hover
+Why health is dropping
+Primary instruction too far back
+Context length high
+Recent responses dominating attention
+
+This teaches users without lectures.
+
+Interactivity that adds real value
+Pin button next to any message
+Pinned messages are treated as moved to the end for scoring
+Show ghost preview of what would happen if you sent the message now
+Health bar animates before send
+
+Advanced but still v1 feasible
+Auto repair button when health is low
+Clicking it inserts a summarized instruction restatement into the prompt
+Example
+“Before continuing remember the core rules are…”
+
+This alone will make users feel like wizards.
+
+Claude vs ChatGPT specifics
+ChatGPT DOM is more stable and easier to parse
+Claude uses longer assistant outputs so noise penalty matters more
+Claude users will benefit more from instruction pinning because Claude is verbose
+
+Ethical and UX note
+Do not claim accuracy
+Do not say this is how the model actually works
+Frame it as a reliability meter
+Like signal strength not battery percentage
+
+Why this will spread
+It is visual
+It confirms a feeling users already have
+It is funny but useful
+It makes people feel smarter without being technical
+
+If you want next steps I can
+write a concrete MVP spec
+sketch the scoring formula
+outline the Chrome extension file structure
+or help you decide whether to start with ChatGPT or Claude first
+
+This is a good idea. It is not a gimmick. It is a behavior changing abstraction.

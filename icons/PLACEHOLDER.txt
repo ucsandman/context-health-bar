@@ -1,0 +1,32 @@
+Icon Placeholders Needed
+========================
+
+For the extension to load properly, you need three PNG icon files:
+
+1. icon16.png (16x16 pixels)
+2. icon48.png (48x48 pixels)
+3. icon128.png (128x128 pixels)
+
+These are used by Chrome for:
+- Toolbar icon (16px)
+- Extension management page (48px)
+- Chrome Web Store listing (128px)
+
+Temporary Solution:
+-------------------
+You can create simple solid color squares as placeholders:
+
+1. Use any image editor (Paint, GIMP, Photoshop, etc.)
+2. Create three PNG files with the sizes above
+3. Use a simple health bar icon design or solid color
+4. Save them in this icons/ folder
+
+Free Icon Resources:
+-------------------
+- icons8.com
+- flaticon.com
+- iconfinder.com
+
+Search for: "health bar", "game health", "heart icon"
+
+Once you have the icons, delete this file and the extension will work!
