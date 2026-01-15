@@ -50,10 +50,10 @@ Add two screenshots to help new users:
 
 Place them in `docs/screenshots/` and update this section with image links:
 
-```md
+
 ![Orb UI](docs/screenshots/refresh_context.png)
 ![Hover Panel](docs/screenshots/yellow_50.png)
-```
+
 
 ## How Health Is Calculated
 
